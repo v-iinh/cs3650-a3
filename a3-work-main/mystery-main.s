@@ -6,21 +6,23 @@
 .extern puts
 main:
   enter $0, $0
-  subq $16, %rsp
+  subq $32, %rsp
 
   cmpq $3, %rdi
   jne .wrong_arg_count
+  movq %rsi, -8(%rbp)
 
   movq 8(%rsi), %rdi
   call atol
-  movq %rax, -8(%rbp)
-
-  movq 16(%rsi), %rdi
-  call atol
   movq %rax, -16(%rbp)
 
-  movq -8(%rbp), %rdi
-  movq -16(%rbp), %rsi
+  movq -8(%rbp), %rsi
+  movq 16(%rsi), %rdi
+  call atol
+  movq %rax, -24(%rbp)
+
+  movq -16(%rbp), %rdi
+  movq -24(%rbp), %rsi
   call crunch
 
   cmpq $0, %rax
