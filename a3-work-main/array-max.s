@@ -1,18 +1,18 @@
 # Write the assembly code for the array_max function
 .text
-.globl array-max
+.globl array_max
 
 array_max:
-    movq (%rdi), %rax
+    movq (%rsi), %rax
     movq $1, %rcx
 
 .loop:
-    cmpq %rsi, %rcx
+    cmpq %rdi, %rcx
     jge .done
 
-    movq (%rdi,%rcx,8), %rdx
+    movq (%rsi,%rcx,8), %rdx
     cmpq %rax, %rdx
-    jle .next
+    jbe .next
     movq %rdx, %rax
 
 .next:
